@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken'
 
 export interface AuthRequest extends Request {
   userId?: number
+  body: Record<string, string>
+  file?: Express.Multer.File
 }
 
 export function verifyToken(req: AuthRequest, res: Response, next: NextFunction): void {
