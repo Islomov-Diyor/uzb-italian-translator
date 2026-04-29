@@ -9,9 +9,14 @@ import app from '../index'
 let token: string
 
 beforeAll(async () => {
-  const res = await request(app)
+  let res = await request(app)
     .post('/api/auth/signup')
     .send({ email: 'trans@example.com', password: 'pass123' })
+  if (!res.body.token) {
+    res = await request(app)
+      .post('/api/auth/login')
+      .send({ email: 'trans@example.com', password: 'pass123' })
+  }
   token = res.body.token
 })
 
